@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html data-ng-app="gemStore">
+    <head>
+    
+        <link href="bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="app/jquery-1.9.1.min.js"></script>
+        <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app/angular.min.js"></script>
+        <script src="app/angular-animate.js"></script>
+        <script src="app/loading-bar.js"></script>
+        <link href="bootstrap-3.3.5-dist/css/loading-bar.css" rel="stylesheet" />
+    <script type="text/javascript" src="app/app.js"></script>
+       
+   
+        <script type="text/javascript" src="app/jszip.min.js"></script>
+        <script type="text/javascript" src="app/kendo.all.min.js"></script>
+        <script type="text/javascript" src="app/okzoom.js"></script>
+        <script src="app/Operations.js"></script>
+   
+     <style>
+
+     </style>
+        <title>Shopalyst</title>
+        </head>
+<body data-ng-controller="StoreController as store" style="background-image:url(/images/eight_horns.png)">
+    <header >
+        <div id="header1">
+      <h1 class="text-center">Shopalyst<span style="font-size:0.7em;opacity:0.5">--one stop shopping portal!</span></h1>
+            
+        </div>
+    </header>
+    <center>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        </center>
+    <div class="row">
+
+<div style="margin-left:10px" class="col-lg-3">
+    <p>Please click on image or title to get Product Description</p>
+       <div class="input-group">
+  <input type="text" class="form-control"  data-ng-model="filterText" style="width:250px"  placeholder="Search..." aria-describedby="basic-addon2">
+</div>
+    <br />
+    <div class="panel panel-info">
+        
+      <div id="scrollArea">
+  
+    <div  style="width:250px" > 
+       <div data-ng-repeat="prod in products.productList | filter:filterText |filter:({division:check}) | filter:({merchant:check8}) | orderBy:order">
+           <div class="panel panel-info">
+               <div class="panel-heading" data-ng-click="loadFeed(prod.productId)">
+                  <a href="#">{{prod.title}}</a> 
+               </div>
+               <div class="panel-body">
+                   <img class="thumbnail" id="mosue1" src="{{prod.imageUrl}}" data-ng-click="loadFeed(prod.productId)" style="height:150px;width:150px" />
+               </div>
+               <div class="panel-footer">
+                   <span style="font-size:1.8em">
+                   {{prod.offerPrice | currency:"&#8377;"}}
+              </span>    
+                   <span style='color:red;text-decoration:line-through'>
+    <span style='color:black;font-size:0.9em'>{{prod.salePrice | currency:"&#8377;"}}</span>
+    </span>           
+
+                       </div>
+           </div>
+    </div> 
+    </div>
+  </div>
+</div>
+</div>
+        <div class="col-lg-7" data-ng-show="show.length > 0">
+    <div class="list-group">
+      <div class="list-group-item">
+       <div>
+    
+           <div id="content">
+           <div class="row">
+         <div class="col-lg-5">
+             <div>
+              
+ <img class="thumbnail" id="example" src="{{sepProduct.images[store.current]}}" class="loadi" style="height:300px;width:300px" />
+               <ul class="img-thumbnail clearfix" data-ng-init="imag = 0" >
+            <li class="small-image pull-left thumbnail" id="mosue1"  data-ng-click="store.setCurrent($index)"  style="height:75px; width:75px" ng-repeat="image in sepProduct.images" >
+              <img   data-ng-src="{{image}}" class="loadi" style="height:65px; width:65px" />
+            </li>
+                    </div>
+<div>
+    <span style="font-size:1.8em">{{sepProduct.offerPrice | currency:"&#8377;"}}</span>&nbsp;&nbsp;&nbsp;
+    
+    <span style='color:red;text-decoration:line-through'>
+    <span style='color:black;font-size:0.9em'>{{sepProduct.salePrice | currency:"&#8377;"}}</span>
+    </span>
+    &nbsp;
+        <span>{{sepProduct.discount}}% OFF</span>
+    
+</div>
+ </div>
+           <div class="col-lg-6" >
+               <div>       
+                  <h4><span class="label label-default">{{sepProduct.title}}</span></h4>
+           </div>
+               <div>
+                   <span>{{sepProduct.description}}</span>
+                   <br />
+                   <br />
+                   <br />
+                   
+                       Description
+                       <ul class="list-group">
+                           <li class="list-group-item"><span>Gender</span><span aria-disabled="true" class="pull-right">{{sepProduct.gender}}</span></li>
+                           <li class="list-group-item"><span>Category</span><span class="pull-right">{{sepProduct.category}}</span></li>
+                           <li class="list-group-item"><span>Merchant</span><span class="pull-right">{{sepProduct.merchant}}</span></li>
+                           <li class="list-group-item"><span>Color</span><span class="pull-right">{{sepProduct.primaryColor}}</span></li>
+                           <li class="list-group-item"><span>Brand</span><span class="pull-right">{{sepProduct.brand}}</span></li>
+                       </ul>
+                  
+
+                <div  class="panel panel-info col-sm-12">
+                   <ul  class="list-inline">
+       <li class="list-inline"><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{sepProduct.productUrl}}&title={{sepProduct.title}}" target="_blank">
+        <img src="images/linkedin.png" style="height:30px;width:30px" alt="LinkedIn" />
+    </a></li>
+      <li class="list-inline"><a href="http://www.facebook.com/sharer.php?u={{sepProduct.productUrl}}&description={{sepProduct.title}}" target="_blank">
+        <img src="images/facebook.png" style="height:30px;width:30px" alt="Facebook" />
+       </a></li>
+        <li class="list-inline"><a href="https://twitter.com/share?url={{sepProduct.productUrl}}&amp;text={{sepProduct.description}}" target="_blank">
+        <img src="images/twitter.png" style="height:30px;width:30px" alt="Twitter" />
+    </a></li>
+                       <li class="list-inline">
+                                <div id="editor"></div>
+<button id="cmd" type="button"  class="btn btn-primary btn-lg">
+  <span id="textdown" class="glyphicon glyphicon-cloud-download" aria-hidden="true">Download</span>
+</button>
+                       </li>
+                       </ul>
+ 
+               </div>
+               </div>
+               </div>
+         
+           </div>
+               </div>
+           </div>
+       </div>
+    </div>
+            </div>
+
+        <div class="col-sm-2">
+        <div class="panel panel-info">
+               <br />
+            <div style="border-bottom:1px solid #19A3FF">
+            <center >            <div class="label label-default" style="font-size:1.2em">
+           
+               <span class="glyphicon glyphicon-filter"  aria-hidden="true"></span> Filter
+                
+
+</div>
+                </center>
+            <br />    
+            </div>
+            <br />
+            <br />
+            <br />
+            <ul class="list-inline" style="padding-left:10px;border-bottom:1px solid #19A3FF">
+              
+            <li class="list-inline label label-default" style="border-bottom:1px solid #19A3FF;font-size:0.9em">Division</li>
+                <br />
+            <li class="list-inline"><input id="Checkbox1" class="checkbox" style="width:10px"  data-ng-model="check"  data-ng-true-value="'TOPS'" data-ng-false-value="''" type="checkbox" />Tops</li>
+            <li class="list-inline"><input id="Checkbox2" class="checkbox" style="width:10px" data-ng-model="check"  data-ng-true-value="'DRESSES'" data-ng-false-value="''" type="checkbox" />Dresses</li>
+            <li class="list-inline"><input id="Checkbox3" class="checkbox" style="width:10px" data-ng-model="check"  data-ng-true-value="'FOOTWEAR'" data-ng-false-value="''"  type="checkbox" />Footwears</li>
+            <li class="list-inline"><input id="Checkbox4" class="checkbox" style="width:10px" data-ng-model="check"  data-ng-true-value="'BOTTOMS'" data-ng-false-value="''" type="checkbox" />Bottoms</li>
+            <li class="list-inline"><input id="Checkbox5" class="checkbox" style="width:10px" data-ng-model="check"  data-ng-true-value="'ETHNIC'" data-ng-false-value="''" type="checkbox" />Ethincs</li>
+       </ul>
+            <br />
+           
+            <ul class="list-inline" style="padding-left:10px;border-bottom:1px solid #19A3FF">
+                <input type="text" style="border:none;height:0;width:0"   />
+            <li class="list-inline label label-default" style="font-size:0.9em">Merchant</li>
+                <br />
+            <li class="list-inline"><input id="Checkbox12" style="width:10px"  data-ng-model="check8"  data-ng-true-value="'flipkart'" data-ng-false-value="''" type="checkbox" />Filpkart</li>
+            <li class="list-inline"><input id="Checkbox13" style="width:10px" data-ng-model="check8"  data-ng-true-value="'yepme'" data-ng-false-value="''" type="checkbox" />Yepme</li>
+            <li class="list-inline"><input id="Checkbox14" style="width:10px" data-ng-model="check8"  data-ng-true-value="'jabong'" data-ng-false-value="''"  type="checkbox" />Jabong</li>
+            <li class="list-inline"><input id="Checkbox15" style="width:10px" data-ng-model="check8"  data-ng-true-value="'fashionara'" data-ng-false-value="''" type="checkbox" />Fashionara</li>
+            <li class="list-inline"><input id="Checkbox16" style="width:10px" data-ng-model="check8"  data-ng-true-value="'trendin'" data-ng-false-value="''" type="checkbox" />Trendin</li>
+       <li class="list-inline"><input id="Checkbox17" style="width:10px" data-ng-model="check8"  data-ng-true-value="'snapdeal'" data-ng-false-value="''" type="checkbox" />Snapdeal</li>
+            </ul>
+ 
+            <center>               
+           <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Price
+    <span class="glyphicon glyphicon-sort-by-order"></span>
+  </button>
+  <ul class="dropdown-menu" data-ng-init="order=''" aria-labelledby="dropdownMenu1">
+    <li><a href="#" data-ng-click="order='offerPrice'" >Low to High</a></li>
+    <li><a href="#" data-ng-click="order='-offerPrice'">High to Low</a></li>
+  </ul>
+</div>
+                </center>
+            <br />
+            <br />
+            <br />
+            <br />
+            
+
+                </div>
+                     </div>
+
+
+        </div>
+  </body>
+</html>
