@@ -16,7 +16,16 @@
         <script type="text/javascript" src="app/kendo.all.min.js"></script>
         <script type="text/javascript" src="app/okzoom.js"></script>
         <script src="app/Operations.js"></script>
-   
+   <script>
+    $(document).ready(function () {
+        $('#scrollbox3').slimScroll({
+            height: '375px'
+        });
+        $(window).on('hashchange', function (e) {
+            history.replaceState("", document.title, e.originalEvent.oldURL)
+        });
+    });
+</script> 
      <style>
 
      </style>
